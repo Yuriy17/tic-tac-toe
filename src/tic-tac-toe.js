@@ -1,37 +1,33 @@
 class TicTacToe {
     constructor() {
-        this.xy=[
-            [null,null,null],
-            [null,null,null],
-            [null,null,null]
+        this.xo = [
+            [null, null, null],
+            [null, null, null],
+            [null, null, null]
         ];
-        this.first_player;
-        this.second_player;
-        this.current_player;
-
+        this.first_player = 'x';
+        this.second_player = 'o';
+        this.current_player = 'x';
     }
 
     getCurrentPlayerSymbol() {
-        if(!this.first_player&&!this.second_player){
-            this.first_player='x';
-            this.second_player='o';
-            this.current_player='x';
-        }
         return this.current_player;
-        
+
     }
 
     nextTurn(rowIndex, columnIndex) {
-        this.xy[rowIndex,columnIndex]=this.current_player;
-        this.current_player=this.current_player==this.first_player?
-                            this.second_player:
-                            this.first_player;
+        if (!this.xo[rowIndex][columnIndex]) {
+            this.xo[rowIndex][columnIndex] = this.current_player;
+            this.current_player = this.current_player === this.first_player ?
+                this.second_player :
+                this.first_player;
+        }
     }
 
     isFinished() {
-        this.xy.forEach(function(stroke){
-            stroke.forEach(function(item) {
-                if(item==null){
+        this.xo.forEach(function (stroke) {
+            stroke.forEach(function (item) {
+                if (item == null) {
                     return false;
                 }
             })
@@ -48,10 +44,26 @@ class TicTacToe {
     }
 
     isDraw() {
-
+        for (let stroke of this.xo){
+            for(let item of stroke){
+                if (item === null) {
+                    return false;
+                }
+            }
+        }
+/*         this.xo.forEach((stroke) => {
+            stroke.forEach((item) => {
+                if (item == null) {
+                    return false;
+                }
+            })
+        }); */
+        return true;
     }
 
     getFieldValue(rowIndex, colIndex) {
+        
+        return this.xo[rowIndex][colIndex];
 
     }
 }
